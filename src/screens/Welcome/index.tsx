@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, Image } from 'react-native';
+import { Text } from 'react-native';
 
 import {
   Container,
