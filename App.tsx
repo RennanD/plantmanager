@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Welcome } from './src/screens/Welcome';
 
 export default function App(): JSX.Element {
-  return <Text>Hello NWL</Text>;
+  return <Welcome />;
 }
