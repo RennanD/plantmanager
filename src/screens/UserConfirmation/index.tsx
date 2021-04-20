@@ -13,7 +13,7 @@ export function UserConfirmation(): JSX.Element {
           Agora vamos começar a cuidar das suas plantinhas com muito cuidado
         </Subtitle>
         <Footer>
-          <Button />
+          <Button title="Começar" />
         </Footer>
       </Content>
     </Container>

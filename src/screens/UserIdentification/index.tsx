@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   Content,
@@ -19,6 +20,12 @@ export function UserIdentification(): JSX.Element {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [username, setUsername] = useState('');
+
+  const navigation = useNavigation();
+
+  function handleSubmit() {
+    navigation.navigate('UserConfirmation');
+  }
 
   function handleInputBlur() {
     setIsFocused(false);
@@ -55,7 +62,7 @@ export function UserIdentification(): JSX.Element {
               onChangeText={handlInputChage}
             />
             <Footer>
-              <Button />
+              <Button title="Confirmar" onPress={handleSubmit} />
             </Footer>
           </Form>
         </Content>

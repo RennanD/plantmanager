@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Feather } from '@expo/vector-icons';
 
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   TitlePage,
@@ -15,6 +16,12 @@ import wateringImg from '../../assets/watering.png';
 import colors from '../../styles/colors';
 
 export function Welcome(): JSX.Element {
+  const navigation = useNavigation();
+
+  function handleStart() {
+    navigation.navigate('UserIdentification');
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -31,7 +38,7 @@ export function Welcome(): JSX.Element {
           sempre que precisar.
         </Description>
 
-        <NextButton activeOpacity={0.8}>
+        <NextButton onPress={handleStart} activeOpacity={0.8}>
           <Feather name="chevron-right" size={32} color={colors.white} />
         </NextButton>
       </Wrapper>

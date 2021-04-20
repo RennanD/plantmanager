@@ -1,10 +1,17 @@
 import React from 'react';
+
+import { TouchableOpacityProps } from 'react-native';
+
 import { ButtonText, Container } from './styles';
 
-export function Button(): JSX.Element {
+interface ButtonProps extends TouchableOpacityProps {
+  title: string;
+}
+
+export function Button({ title, style, ...rest }: ButtonProps): JSX.Element {
   return (
-    <Container>
-      <ButtonText>Confirmar</ButtonText>
+    <Container {...rest}>
+      <ButtonText>{title}</ButtonText>
     </Container>
   );
 }
