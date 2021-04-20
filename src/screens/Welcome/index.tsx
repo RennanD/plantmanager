@@ -19,7 +19,7 @@ export function Welcome(): JSX.Element {
         Gerencie {'\n'} suas plantas de {'\n'} forma fácil
       </TitlePage>
 
-      <HeroImage source={wateringImg} />
+      <HeroImage resizeMode="contain" source={wateringImg} />
 
       <Description>
         Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você
