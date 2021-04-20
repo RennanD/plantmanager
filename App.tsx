@@ -8,7 +8,8 @@ import {
   Jost_600SemiBold,
 } from '@expo-google-fonts/jost';
 
-import { Welcome } from './src/screens/Welcome';
+// import { Welcome } from './src/screens/Welcome';
+import { UserIdentification } from './src/screens/UserIdentification';
 
 export default function App(): JSX.Element {
   const [fontsLoaded] = useFonts({
@@ -16,5 +17,5 @@ export default function App(): JSX.Element {
     Jost_600SemiBold,
   });
 
-  return fontsLoaded ? <Welcome /> : <AppLoading />;
+  return fontsLoaded ? <UserIdentification /> : <AppLoading />;
 }
