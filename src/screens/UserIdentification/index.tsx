@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Platform } from 'react-native';
 import {
@@ -16,19 +16,44 @@ import {
 import { Button } from '../../components/Button';
 
 export function UserIdentification(): JSX.Element {
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+  const [username, setUsername] = useState('');
+
+  function handleInputBlur() {
+    setIsFocused(false);
+    setIsFilled(!!username);
+  }
+
+  function handleInputFocus() {
+    setIsFocused(true);
+  }
+
+  function handlInputChage(value: string) {
+    setUsername(value);
+    setIsFilled(!!value);
+  }
+
   return (
     <Container>
       <KeyboardView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <Content>
           <Form>
             <Header>
-              <Emoji>😁</Emoji>
+              <Emoji>{isFilled ? '😊' : '😁'}</Emoji>
               <Title>
                 Como podemos{'\n'}
                 chamar você?
               </Title>
             </Header>
-            <Input placeholder="Digite um nome" />
+            <Input
+              isFocused={isFocused || isFilled}
+              placeholder="Digite um nome"
+              onBlur={handleInputBlur}
+              onFocus={handleInputFocus}
+              value={username}
+              onChangeText={handlInputChage}
+            />
             <Footer>
               <Button />
             </Footer>

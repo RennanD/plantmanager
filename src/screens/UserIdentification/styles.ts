@@ -1,6 +1,10 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+
+interface InputProps {
+  isFocused: boolean;
+}
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -45,7 +49,7 @@ export const Emoji = styled.Text`
   font-size: 44px;
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput<InputProps>`
   border-bottom-width: 1px;
   border-style: solid;
   border-bottom-color: ${colors.gray};
@@ -56,6 +60,12 @@ export const Input = styled.TextInput`
   margin-top: 50px;
   padding: 10px;
   text-align: center;
+
+  ${props =>
+    props.isFocused &&
+    css`
+      border-bottom-color: ${colors.green};
+    `}
 `;
 
 export const Footer = styled.View`
