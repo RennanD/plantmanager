@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
-import { Platform } from 'react-native';
+import { Keyboard, Platform, TouchableWithoutFeedback } from 'react-native';
+
 import { useNavigation } from '@react-navigation/native';
+
 import {
   Container,
   Content,
@@ -44,28 +46,30 @@ export function UserIdentification(): JSX.Element {
   return (
     <Container>
       <KeyboardView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <Content>
-          <Form>
-            <Header>
-              <Emoji>{isFilled ? '😊' : '😁'}</Emoji>
-              <Title>
-                Como podemos{'\n'}
-                chamar você?
-              </Title>
-            </Header>
-            <Input
-              isFocused={isFocused || isFilled}
-              placeholder="Digite um nome"
-              onBlur={handleInputBlur}
-              onFocus={handleInputFocus}
-              value={username}
-              onChangeText={handlInputChage}
-            />
-            <Footer>
-              <Button title="Confirmar" onPress={handleSubmit} />
-            </Footer>
-          </Form>
-        </Content>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Content>
+            <Form>
+              <Header>
+                <Emoji>{isFilled ? '😊' : '😁'}</Emoji>
+                <Title>
+                  Como podemos{'\n'}
+                  chamar você?
+                </Title>
+              </Header>
+              <Input
+                isFocused={isFocused || isFilled}
+                placeholder="Digite um nome"
+                onBlur={handleInputBlur}
+                onFocus={handleInputFocus}
+                value={username}
+                onChangeText={handlInputChage}
+              />
+              <Footer>
+                <Button title="Confirmar" onPress={handleSubmit} />
+              </Footer>
+            </Form>
+          </Content>
+        </TouchableWithoutFeedback>
       </KeyboardView>
     </Container>
   );
