@@ -2,19 +2,26 @@ import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 
 import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
+`;
+
+export const Wrapper = styled.View`
+  flex: 1;
   align-items: center;
   justify-content: space-around;
+  padding: 0 20px;
 `;
 
 export const TitlePage = styled.Text`
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 28px;
   text-align: center;
   color: ${colors.heading};
+  line-height: 34px;
   padding-top: 40px;
+  font-family: ${fonts.heading};
 `;
 
 export const HeroImage = styled.Image`
@@ -26,6 +33,7 @@ export const Description = styled.Text`
   font-size: 18px;
   padding: 0 20px;
   color: ${colors.heading};
+  font-family: ${fonts.regular};
 `;
 
 export const NextButton = styled.TouchableOpacity`
