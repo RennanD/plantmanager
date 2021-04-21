@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, ActivityIndicator } from 'react-native';
 import { EnvironmentButton } from '../../components/EnvironmentButton';
 import { Header } from '../../components/Header';
 import { PlantCardPrimary } from '../../components/PlantCardPrimary';
@@ -8,6 +8,7 @@ import api from '../../services/api';
 import { Container, Title, Subtitle, Head, Plants, styles } from './styles';
 
 import { Loading } from '../../components/Loading';
+import colors from '../../styles/colors';
 
 interface EnvironmnetProps {
   key: string;
@@ -27,11 +28,30 @@ export function PlantSelect(): JSX.Element {
 
   const [selectedEnvironment, setSelectEnvironment] = useState('all');
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [pagination, setPagination] = useState(1);
-  const [loadingMode, setLoadingMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [loadedAll, setLoadedAll] = useState(false);
+
+  function fetchPlants() {
+    api
+      .get(`/plants?_sort=name&_order=asc&_page=${pagination}&_limit=8`)
+      .then(response => {
+        if (!response.data) {
+          return;
+        }
+        if (pagination > 1) {
+          setPlants(oldState => [...oldState, ...response.data]);
+          setFilteredPlants(oldState => [...oldState, ...response.data]);
+        } else {
+          setPlants(response.data);
+          setFilteredPlants(response.data);
+        }
+        setLoading(false);
+        setLoadingMore(false);
+      });
+  }
 
   function handleSelectEnvironment(environment_key: string) {
     setSelectEnvironment(environment_key);
@@ -44,6 +64,14 @@ export function PlantSelect(): JSX.Element {
       );
 
       setFilteredPlants(filtered);
+    }
+  }
+
+  function handleFetchMore(distance: number) {
+    if (distance >= 1) {
+      setLoadingMore(true);
+      setPagination(oldState => oldState + 1);
+      fetchPlants();
     }
   }
 
@@ -60,12 +88,7 @@ export function PlantSelect(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    api.get('/plants?_sort=name&_order=asc').then(response => {
-      setPlants(response.data);
-      setFilteredPlants(response.data);
-      setLoading(false);
-    });
+    fetchPlants();
   }, []);
 
   return (
@@ -107,6 +130,17 @@ export function PlantSelect(): JSX.Element {
               numColumns={2}
               contentContainerStyle={styles.plantList}
               showsVerticalScrollIndicator={false}
+              onEndReachedThreshold={0.1}
+              onEndReached={({ distanceFromEnd }) => {
+                handleFetchMore(distanceFromEnd);
+              }}
+              ListFooterComponent={
+                loadingMore ? (
+                  <ActivityIndicator size={32} color={colors.green} />
+                ) : (
+                  <></>
+                )
+              }
             />
           </Plants>
         </>
