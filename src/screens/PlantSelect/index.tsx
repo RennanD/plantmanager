@@ -39,6 +39,7 @@ export function PlantSelect(): JSX.Element {
       .get(`/plants?_sort=name&_order=asc&_page=${pagination}&_limit=8`)
       .then(response => {
         if (!response.data) {
+          setLoadedAll(true);
           return;
         }
         if (pagination > 1) {
@@ -68,6 +69,8 @@ export function PlantSelect(): JSX.Element {
   }
 
   function handleFetchMore(distance: number) {
+    if (loadedAll) return;
+
     if (distance >= 1) {
       setLoadingMore(true);
       setPagination(oldState => oldState + 1);
