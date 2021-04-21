@@ -92,6 +92,7 @@ export function PlantSelect(): JSX.Element {
 
   useEffect(() => {
     fetchPlants();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
