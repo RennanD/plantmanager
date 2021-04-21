@@ -27,6 +27,12 @@ export const Subtitle = styled.Text`
   color: ${colors.heading};
 `;
 
+export const Plants = styled.View`
+  flex: 1;
+  justify-content: center;
+  padding: 0 24px;
+`;
+
 export const styles = StyleSheet.create({
   environmentList: {
     height: 40,
@@ -35,5 +41,9 @@ export const styles = StyleSheet.create({
     marginLeft: 32,
     marginVertical: 32,
     paddingRight: 40,
+  },
+
+  plantList: {
+    paddingBottom: 40,
   },
 });

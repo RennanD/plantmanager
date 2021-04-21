@@ -15,7 +15,7 @@ export const Container = styled(RectButton)`
 `;
 
 export const PlantName = styled.Text`
-  color: ${colors.green_light};
+  color: ${colors.green_dark};
   font-family: ${fonts.heading};
   margin: 16px 0;
 `;
