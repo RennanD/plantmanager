@@ -7,6 +7,8 @@ import api from '../../services/api';
 
 import { Container, Title, Subtitle, Head, Plants, styles } from './styles';
 
+import { Loading } from '../../components/Loading';
+
 interface EnvironmnetProps {
   key: string;
   title: string;
@@ -22,7 +24,14 @@ export function PlantSelect(): JSX.Element {
   const [environments, setEnvironments] = useState<EnvironmnetProps[]>([]);
   const [plants, setPlants] = useState<PlantProps[]>([]);
   const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
+
   const [selectedEnvironment, setSelectEnvironment] = useState('all');
+
+  const [loading, setLoading] = useState(false);
+
+  const [pagination, setPagination] = useState(1);
+  const [loadingMode, setLoadingMore] = useState(false);
+  const [loadedAll, setLoadedAll] = useState(false);
 
   function handleSelectEnvironment(environment_key: string) {
     setSelectEnvironment(environment_key);
@@ -51,9 +60,11 @@ export function PlantSelect(): JSX.Element {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     api.get('/plants?_sort=name&_order=asc').then(response => {
       setPlants(response.data);
       setFilteredPlants(response.data);
+      setLoading(false);
     });
   }, []);
 
@@ -65,33 +76,41 @@ export function PlantSelect(): JSX.Element {
         <Subtitle>você quer colocar a sua planta?</Subtitle>
       </Head>
 
-      <View>
-        <FlatList
-          data={environments}
-          keyExtractor={environment => environment.key}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.environmentList}
-          renderItem={({ item: environment }) => (
-            <EnvironmentButton
-              title={environment.title}
-              onPress={() => handleSelectEnvironment(environment.key)}
-              active={environment.key === selectedEnvironment}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <View>
+            <FlatList
+              data={environments}
+              keyExtractor={environment => environment.key}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.environmentList}
+              renderItem={({ item: environment }) => (
+                <EnvironmentButton
+                  title={environment.title}
+                  onPress={() => handleSelectEnvironment(environment.key)}
+                  active={environment.key === selectedEnvironment}
+                />
+              )}
             />
-          )}
-        />
-      </View>
+          </View>
 
-      <Plants>
-        <FlatList
-          data={filteredPlants}
-          keyExtractor={plant => plant.name}
-          renderItem={({ item: plant }) => <PlantCardPrimary data={plant} />}
-          numColumns={2}
-          contentContainerStyle={styles.plantList}
-          showsVerticalScrollIndicator={false}
-        />
-      </Plants>
+          <Plants>
+            <FlatList
+              data={filteredPlants}
+              keyExtractor={plant => plant.name}
+              renderItem={({ item: plant }) => (
+                <PlantCardPrimary data={plant} />
+              )}
+              numColumns={2}
+              contentContainerStyle={styles.plantList}
+              showsVerticalScrollIndicator={false}
+            />
+          </Plants>
+        </>
+      )}
     </Container>
   );
 }
