@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -25,3 +26,14 @@ export const Subtitle = styled.Text`
   height: 20px;
   color: ${colors.heading};
 `;
+
+export const styles = StyleSheet.create({
+  environmentList: {
+    height: 40,
+    justifyContent: 'center',
+    paddingBottom: 5,
+    marginLeft: 32,
+    marginVertical: 32,
+    paddingRight: 40,
+  },
+});

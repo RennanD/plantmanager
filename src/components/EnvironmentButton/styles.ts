@@ -14,6 +14,7 @@ export const Container = styled(RectButton)<ContainerProps>`
   justify-content: center;
   align-items: center;
   border-radius: 12px;
+  margin-right: 5px;
 
   ${props =>
     props.active &&
