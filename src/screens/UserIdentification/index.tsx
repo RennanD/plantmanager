@@ -38,7 +38,7 @@ export function UserIdentification(): JSX.Element {
       return;
     }
 
-    await AsyncStorage.setItem('@platmaneger:username', username);
+    await AsyncStorage.setItem('@plantmanager:username', username);
     navigation.navigate('UserConfirmation');
   }
 
