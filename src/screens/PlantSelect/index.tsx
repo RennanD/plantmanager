@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { EnvironmentButton } from '../../components/EnvironmentButton';
 import { Header } from '../../components/Header';
 import { PlantCardPrimary } from '../../components/PlantCardPrimary';
@@ -16,6 +17,7 @@ interface EnvironmnetProps {
 }
 
 interface PlantProps {
+  id: number;
   name: string;
   photo: string;
   environments: string[];
@@ -33,6 +35,8 @@ export function PlantSelect(): JSX.Element {
   const [pagination, setPagination] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadedAll, setLoadedAll] = useState(false);
+
+  const navigation = useNavigation();
 
   function fetchPlants() {
     api
@@ -76,6 +80,10 @@ export function PlantSelect(): JSX.Element {
       setPagination(oldState => oldState + 1);
       fetchPlants();
     }
+  }
+
+  function handleShowPlant(plant: PlantProps) {
+    navigation.navigate('SavePlants');
   }
 
   useEffect(() => {
@@ -127,9 +135,12 @@ export function PlantSelect(): JSX.Element {
           <Plants>
             <FlatList
               data={filteredPlants}
-              keyExtractor={plant => plant.name}
+              keyExtractor={plant => String(plant.id)}
               renderItem={({ item: plant }) => (
-                <PlantCardPrimary data={plant} />
+                <PlantCardPrimary
+                  onPress={() => handleShowPlant(plant)}
+                  data={plant}
+                />
               )}
               numColumns={2}
               contentContainerStyle={styles.plantList}
