@@ -72,3 +72,16 @@ export const AlertLabel = styled.Text`
   font-size: 12px;
   margin: 5px 0;
 `;
+
+export const DateTimePikerText = styled.Text`
+  font-size: 24px;
+  font-family: ${fonts.regular};
+  text-align: center;
+  color: ${colors.heading};
+`;
+
+export const DateTimePikerButton = styled.TouchableOpacity`
+  width: 100%;
+  align-items: center;
+  padding: 40px 0;
+`;
