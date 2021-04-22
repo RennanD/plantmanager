@@ -24,7 +24,8 @@ import {
 
 import waterdrop from '../../assets/waterdrop.png';
 import { Button } from '../../components/Button';
-import { PlantProps } from '../../libs/storage';
+
+import { PlantProps, savePlant } from '../../libs/storage';
 
 interface RouteParams {
   plant: PlantProps;
@@ -56,6 +57,14 @@ export function SavePlants(): JSX.Element {
 
   function handleShowDateTimePikerForAndroid() {
     setShowDatePiker(oldState => !oldState);
+  }
+
+  async function handleSavePlant() {
+    try {
+      await savePlant({ ...plant, datetimeNotification: selectedDateTime });
+    } catch {
+      Alert.alert('Erro', 'Não foi possível savar a planta 😰');
+    }
   }
 
   return (
@@ -93,7 +102,7 @@ export function SavePlants(): JSX.Element {
           </DateTimePikerButton>
         )}
 
-        <Button title="Cadastrar planta" />
+        <Button title="Cadastrar planta" onPress={handleSavePlant} />
       </Controllers>
     </Container>
   );
