@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 
-import { Keyboard, Platform, TouchableWithoutFeedback } from 'react-native';
+import {
+  Keyboard,
+  Platform,
+  TouchableWithoutFeedback,
+  Alert,
+} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Container,
@@ -25,7 +32,13 @@ export function UserIdentification(): JSX.Element {
 
   const navigation = useNavigation();
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    if (!username) {
+      Alert.alert('Ops', 'Me diz como chamar você 😅');
+      return;
+    }
+
+    await AsyncStorage.setItem('@platmaneger:username', username);
     navigation.navigate('UserConfirmation');
   }
 
@@ -65,7 +78,11 @@ export function UserIdentification(): JSX.Element {
                 onChangeText={handlInputChage}
               />
               <Footer>
-                <Button title="Confirmar" onPress={handleSubmit} />
+                <Button
+                  disabled={!username}
+                  title="Confirmar"
+                  onPress={handleSubmit}
+                />
               </Footer>
             </Form>
           </Content>
