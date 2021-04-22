@@ -83,7 +83,7 @@ export function PlantSelect(): JSX.Element {
   }
 
   function handleShowPlant(plant: PlantProps) {
-    navigation.navigate('SavePlants');
+    navigation.navigate('SavePlants', { plant });
   }
 
   useEffect(() => {

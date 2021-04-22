@@ -1,6 +1,7 @@
 import React from 'react';
 import { SvgFromUri } from 'react-native-svg';
 
+import { useRoute } from '@react-navigation/native';
 import {
   AboutPlant,
   Container,
@@ -16,28 +17,40 @@ import {
 import waterdrop from '../../assets/waterdrop.png';
 import { Button } from '../../components/Button';
 
+interface PlantProps {
+  id: number;
+  name: string;
+  about: string;
+  water_tips: string;
+  photo: string;
+  frequency: {
+    times: number;
+    repeat_ever: string;
+  };
+}
+
+interface RouteParams {
+  plant: PlantProps;
+}
+
 export function SavePlants(): JSX.Element {
+  const route = useRoute();
+
+  const { plant } = route.params as RouteParams;
+
   return (
     <Container>
       <PlantInfo>
-        <SvgFromUri uri="" height={150} width={150} />
+        <SvgFromUri uri={plant.photo} height={150} width={150} />
 
-        <PlantName>Espada de São Jorge</PlantName>
-        <AboutPlant>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-          architecto soluta magnam quasi et, ex vero similique nam voluptate
-          fugiat explicabo, deserunt, natus illum. Esse molestiae optio
-          reiciendis numquam alias?
-        </AboutPlant>
+        <PlantName>{plant.name}</PlantName>
+        <AboutPlant>{plant.about}</AboutPlant>
       </PlantInfo>
 
       <Controllers>
         <TipContainer>
           <TipImage source={waterdrop} />
-          <TipText>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-            culpa temporibus fugit consectetur tenetur.
-          </TipText>
+          <TipText>{plant.water_tips}</TipText>
         </TipContainer>
 
         <AlertLabel>Esconha o melhor horário para ser lembrado</AlertLabel>
