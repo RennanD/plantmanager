@@ -3,7 +3,7 @@ import { SvgFromUri } from 'react-native-svg';
 
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { isBefore, format } from 'date-fns';
 
@@ -33,6 +33,7 @@ interface RouteParams {
 
 export function SavePlants(): JSX.Element {
   const route = useRoute();
+  const navigation = useNavigation();
 
   const [selectedDateTime, setSelectedDateTime] = useState(new Date());
   const [showDatePiker, setShowDatePiker] = useState(Platform.OS === 'ios');
@@ -61,7 +62,20 @@ export function SavePlants(): JSX.Element {
 
   async function handleSavePlant() {
     try {
-      await savePlant({ ...plant, datetimeNotification: selectedDateTime });
+      const data = {
+        ...plant,
+        datetimeNotification: selectedDateTime,
+      };
+
+      await savePlant(data);
+      navigation.navigate('UserConfirmation', {
+        title: 'Tudo Certo',
+        icon: 'hug',
+        subtitle:
+          'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha',
+        buttonTitle: 'Muito obrigado :D',
+        nextScreen: 'MyPlants',
+      });
     } catch {
       Alert.alert('Erro', 'Não foi possível savar a planta 😰');
     }

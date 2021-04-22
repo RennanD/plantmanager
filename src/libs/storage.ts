@@ -27,7 +27,9 @@ export async function savePlant(plant: PlantProps): Promise<void> {
     const oldPlants = data ? (JSON.parse(data) as StoragePlantProps) : {};
 
     const newPlant = {
-      [plant.id]: plant,
+      [plant.id]: {
+        data: plant,
+      },
     };
 
     await AsyncStorage.setItem(
@@ -45,19 +47,24 @@ export async function loadPlants(): Promise<PlantProps[]> {
     const plants = data ? (JSON.parse(data) as StoragePlantProps) : {};
 
     const plantsSorted = Object.keys(plants)
-      .map(plant => ({
-        ...plants[plant].data,
-        hour: format(
-          new Date(plants[plant].data.datetimeNotification),
-          'HH:mm',
-        ),
-      }))
+      .map(plant => {
+        console.log(plants[plant].data);
+        return {
+          ...plants[plant].data,
+          hour: format(
+            new Date(plants[plant].data.datetimeNotification),
+            'HH:mm',
+          ),
+        };
+      })
       .sort((a, b) =>
         Math.floor(
           new Date(a.datetimeNotification).getTime() / 1000 -
             Math.floor(new Date(b.datetimeNotification).getTime() / 1000),
         ),
       );
+
+    console.log(plantsSorted);
 
     return plantsSorted;
   } catch (error) {
