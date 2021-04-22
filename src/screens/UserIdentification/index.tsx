@@ -39,7 +39,13 @@ export function UserIdentification(): JSX.Element {
     }
 
     await AsyncStorage.setItem('@plantmanager:username', username);
-    navigation.navigate('UserConfirmation');
+    navigation.navigate('UserConfirmation', {
+      title: 'Prontinho',
+      icon: 'smile',
+      subtitle: 'Agora vamos começar a cuidar das suas plantinhas',
+      buttonTitle: 'Começar',
+      nextScreen: 'PlantSelect',
+    });
   }
 
   function handleInputBlur() {

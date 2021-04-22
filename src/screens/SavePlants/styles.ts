@@ -11,7 +11,7 @@ export const Container = styled.View`
 
 export const PlantInfo = styled.View`
   flex: 1;
-  padding: 50px 30px;
+  padding: 50px 32px;
   align-items: center;
   justify-content: center;
   background: ${colors.shape};
@@ -35,7 +35,7 @@ export const AboutPlant = styled.Text`
 
 export const Controllers = styled.View`
   background: ${colors.white};
-  padding: 30px;
+  padding: 32px;
   padding-top: 20px;
   padding-bottom: ${getBottomSpace() || 20}px;
 `;
