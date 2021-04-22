@@ -24,18 +24,7 @@ import {
 
 import waterdrop from '../../assets/waterdrop.png';
 import { Button } from '../../components/Button';
-
-interface PlantProps {
-  id: number;
-  name: string;
-  about: string;
-  water_tips: string;
-  photo: string;
-  frequency: {
-    times: number;
-    repeat_ever: string;
-  };
-}
+import { PlantProps } from '../../libs/storage';
 
 interface RouteParams {
   plant: PlantProps;

@@ -10,17 +10,11 @@ import { Container, Title, Subtitle, Head, Plants, styles } from './styles';
 
 import { Loading } from '../../components/Loading';
 import colors from '../../styles/colors';
+import { PlantProps } from '../../libs/storage';
 
 interface EnvironmnetProps {
   key: string;
   title: string;
-}
-
-interface PlantProps {
-  id: number;
-  name: string;
-  photo: string;
-  environments: string[];
 }
 
 export function PlantSelect(): JSX.Element {
