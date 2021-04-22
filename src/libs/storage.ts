@@ -48,7 +48,6 @@ export async function loadPlants(): Promise<PlantProps[]> {
 
     const plantsSorted = Object.keys(plants)
       .map(plant => {
-        console.log(plants[plant].data);
         return {
           ...plants[plant].data,
           hour: format(
@@ -63,8 +62,6 @@ export async function loadPlants(): Promise<PlantProps[]> {
             Math.floor(new Date(b.datetimeNotification).getTime() / 1000),
         ),
       );
-
-    console.log(plantsSorted);
 
     return plantsSorted;
   } catch (error) {
