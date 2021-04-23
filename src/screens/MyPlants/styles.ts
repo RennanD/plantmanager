@@ -7,7 +7,6 @@ export const Container = styled.View`
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  padding-top: 50px;
   background: ${colors.background};
 `;
 

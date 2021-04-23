@@ -74,7 +74,7 @@ export function SavePlants(): JSX.Element {
         subtitle:
           'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha',
         buttonTitle: 'Muito obrigado :D',
-        nextScreen: 'MyPlants',
+        nextScreen: 'AuthRoutes',
       });
     } catch {
       Alert.alert('Erro', 'Não foi possível savar a planta 😰');

@@ -71,6 +71,9 @@ export function MyPlants(): JSX.Element {
                 <PlantCardSecundary data={plant} />
               )}
               showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                paddingBottom: 40,
+              }}
             />
           </PlantsContainer>
         </>

@@ -44,7 +44,7 @@ export function UserIdentification(): JSX.Element {
       icon: 'smile',
       subtitle: 'Agora vamos começar a cuidar das suas plantinhas',
       buttonTitle: 'Começar',
-      nextScreen: 'PlantSelect',
+      nextScreen: 'AuthRoutes',
     });
   }
 
