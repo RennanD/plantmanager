@@ -13,6 +13,7 @@ export interface PlantProps {
   };
   environments: string[];
   datetimeNotification: Date;
+  hour: string;
 }
 
 interface StoragePlantProps {

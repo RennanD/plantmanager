@@ -21,6 +21,8 @@ import { Header } from '../../components/Header';
 import waterdrop from '../../assets/waterdrop.png';
 
 import { loadPlants, PlantProps } from '../../libs/storage';
+import { PlantCardSecundary } from '../../components/PlantCardSecundary';
+import { Loading } from '../../components/Loading';
 
 export function MyPlants(): JSX.Element {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
@@ -50,21 +52,29 @@ export function MyPlants(): JSX.Element {
     <Container>
       <Header />
 
-      <Spotlight>
-        <SpotlightImage source={waterdrop} />
-        <SpotlightText>{nextWatered}</SpotlightText>
-      </Spotlight>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <Spotlight>
+            <SpotlightImage source={waterdrop} />
+            <SpotlightText>{nextWatered}</SpotlightText>
+          </Spotlight>
 
-      <PlantsContainer>
-        <PlantsTitle>Próximas regadas</PlantsTitle>
+          <PlantsContainer>
+            <PlantsTitle>Próximas regadas</PlantsTitle>
 
-        <FlatList
-          data={myPlants}
-          keyExtractor={myPlant => String(myPlant.id)}
-          renderItem={() => <SpotlightText>Elemento</SpotlightText>}
-          showsVerticalScrollIndicator={false}
-        />
-      </PlantsContainer>
+            <FlatList
+              data={myPlants}
+              keyExtractor={myPlant => String(myPlant.id)}
+              renderItem={({ item: plant }) => (
+                <PlantCardSecundary data={plant} />
+              )}
+              showsVerticalScrollIndicator={false}
+            />
+          </PlantsContainer>
+        </>
+      )}
     </Container>
   );
 }
