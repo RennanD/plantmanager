@@ -7,7 +7,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { isBefore, format } from 'date-fns';
 
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, ScrollView } from 'react-native';
 import {
   AboutPlant,
   Container,
@@ -82,42 +82,50 @@ export function SavePlants(): JSX.Element {
   }
 
   return (
-    <Container>
-      <PlantInfo>
-        <SvgFromUri uri={plant.photo} height={150} width={150} />
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: 'space-between',
+      }}
+    >
+      <Container>
+        <PlantInfo>
+          <SvgFromUri uri={plant.photo} height={150} width={150} />
 
-        <PlantName>{plant.name}</PlantName>
-        <AboutPlant>{plant.about}</AboutPlant>
-      </PlantInfo>
+          <PlantName>{plant.name}</PlantName>
+          <AboutPlant>{plant.about}</AboutPlant>
+        </PlantInfo>
 
-      <Controllers>
-        <TipContainer>
-          <TipImage source={waterdrop} />
-          <TipText>{plant.water_tips}</TipText>
-        </TipContainer>
+        <Controllers>
+          <TipContainer>
+            <TipImage source={waterdrop} />
+            <TipText>{plant.water_tips}</TipText>
+          </TipContainer>
 
-        <AlertLabel>Esconha o melhor horário para ser lembrado</AlertLabel>
+          <AlertLabel>Esconha o melhor horário para ser lembrado</AlertLabel>
 
-        {showDatePiker && (
-          <DateTimePicker
-            value={selectedDateTime}
-            mode="time"
-            display="spinner"
-            onChange={handleChangeTime}
-          />
-        )}
+          {showDatePiker && (
+            <DateTimePicker
+              value={selectedDateTime}
+              mode="time"
+              display="spinner"
+              onChange={handleChangeTime}
+            />
+          )}
 
-        {Platform.OS === 'android' && (
-          <DateTimePikerButton onPress={handleShowDateTimePikerForAndroid}>
-            <DateTimePikerText>{`Mudar ${format(
-              selectedDateTime,
-              'HH:mm',
-            )}`}</DateTimePikerText>
-          </DateTimePikerButton>
-        )}
+          {Platform.OS === 'android' && (
+            <DateTimePikerButton onPress={handleShowDateTimePikerForAndroid}>
+              <DateTimePikerText>{`Mudar ${format(
+                selectedDateTime,
+                'HH:mm',
+              )}`}</DateTimePikerText>
+            </DateTimePikerButton>
+          )}
 
-        <Button title="Cadastrar planta" onPress={handleSavePlant} />
-      </Controllers>
-    </Container>
+          <Button title="Cadastrar planta" onPress={handleSavePlant} />
+        </Controllers>
+      </Container>
+    </ScrollView>
   );
 }

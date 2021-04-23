@@ -16,7 +16,7 @@ export interface PlantProps {
   hour: string;
 }
 
-interface StoragePlantProps {
+export interface StoragePlantProps {
   [id: string]: {
     data: PlantProps;
   };
