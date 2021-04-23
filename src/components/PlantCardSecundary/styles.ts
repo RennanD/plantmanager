@@ -15,6 +15,18 @@ export const Container = styled(RectButton)`
   margin: 5px 0;
 `;
 
+export const RemoveButton = styled(RectButton)`
+  width: 100px;
+  height: 85px;
+  background: ${colors.red};
+  margin-top: 15px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  right: 20px;
+  padding-left: 15px;
+`;
+
 export const PlantName = styled.Text`
   flex: 1;
   margin-left: 10px;

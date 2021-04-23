@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 
 // eslint-disable-next-line import/no-duplicates
 import { formatDistance } from 'date-fns';
@@ -20,7 +20,7 @@ import { Header } from '../../components/Header';
 
 import waterdrop from '../../assets/waterdrop.png';
 
-import { loadPlants, PlantProps } from '../../libs/storage';
+import { deletePlant, loadPlants, PlantProps } from '../../libs/storage';
 import { PlantCardSecundary } from '../../components/PlantCardSecundary';
 import { Loading } from '../../components/Loading';
 
@@ -28,6 +28,29 @@ export function MyPlants(): JSX.Element {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [nextWatered, setNextWatered] = useState('');
+
+  function handleRemovePlant(plant: PlantProps) {
+    Alert.alert('Remover', `Deseja remover a ${plant.name}`, [
+      {
+        text: 'Não 🙏',
+        style: 'cancel',
+      },
+      {
+        text: 'Sim 🥺',
+        onPress: async () => {
+          try {
+            await deletePlant(String(plant.id));
+
+            setMyPlants(oldState =>
+              oldState.filter(item => item.id !== plant.id),
+            );
+          } catch (error) {
+            Alert.alert('Erro', 'Não foi possível remover 🥺');
+          }
+        },
+      },
+    ]);
+  }
 
   useEffect(() => {
     loadPlants().then(plants => {
@@ -68,7 +91,10 @@ export function MyPlants(): JSX.Element {
               data={myPlants}
               keyExtractor={myPlant => String(myPlant.id)}
               renderItem={({ item: plant }) => (
-                <PlantCardSecundary data={plant} />
+                <PlantCardSecundary
+                  onRemove={() => handleRemovePlant(plant)}
+                  data={plant}
+                />
               )}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{
