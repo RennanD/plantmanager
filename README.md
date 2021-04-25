@@ -44,6 +44,7 @@ For this aplication we need have installed:
 - [Expo Notifications](https://docs.expo.io/versions/latest/sdk/notifications/), for send local notification to user.
 - [styled-components](https://styled-components.com/) for styles.
 
+
 ### ⚡️ Start
 
 To start application, run:
