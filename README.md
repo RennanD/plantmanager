@@ -44,6 +44,10 @@ For this aplication we need have installed:
 - [Expo Notifications](https://docs.expo.io/versions/latest/sdk/notifications/), for send local notification to user.
 - [styled-components](https://styled-components.com/) for styles.
 
+### 🔥 Running our fake api
+
+First, change `baseURL` property in `./src/services/api.ts`, for your IP, with `3333` port.
+After, open a new terminal window and run `npx json-server ./src/services/server.json --host "your IP" --port 333`
 
 ### ⚡️ Start
 
