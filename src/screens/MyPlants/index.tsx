@@ -63,7 +63,7 @@ export function MyPlants(): JSX.Element {
       );
 
       setNextWatered(
-        `Não esqueça de regar a ${plants[0].name} daqui à ${nextTime} horas`,
+        `Não esqueça de regar a ${plants[0].name} daqui à ${nextTime}`,
       );
 
       setMyPlants(plants);
